@@ -17,7 +17,7 @@ const router = new Router({
             component:AddComponent
         }
     ]
-})
+});
 
 Vue.component('index-component', IndexComponent);
 Vue.component('add-component', AddComponent);
@@ -38,6 +38,12 @@ new Vue({
         });
         
         this.ipAddress = this.ipc.sendSync('getAddress');
+
+        this.ipc.on('sendList', (e, arg)=>{
+            this.problemList = arg.data;
+            console.log(this.problemList);
+        });
+        this.ipc.send('getList');
     },
     data: {
         ipc:ipcRenderer,
@@ -55,7 +61,7 @@ new Vue({
             this.ipc.send("serverStart");
         },
         stopServer(){
-            console.log("서버 종료명령 ipc로 전송")
+            console.log("서버 종료명령 ipc로 전송");
             this.ipc.send("serverStop");
         },
         openLoginWindow(){
