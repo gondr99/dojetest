@@ -1,17 +1,51 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>과정형 평가 문제 생성기</title>
-    <style>
-
-    </style>
+    <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
-    <h1>메인화면</h1>
-    
+    <div id="app">
+        <section id="title">
+            <h3>과정형평가 문제관리 앱</h3>
+            <div class="menu">
+                <button class="btn btn-blue btn-sm" @click="openLoginWindow">로그인</button>
+                <button class="btn btn-green btn-sm">회원가입</button>
+            </div>
+        </section>
+        <section id="content">
+            <div class="left">
+                <nav>
+                    <router-link class="btn btn-nav" to="/">메인</router-link>
+                    <router-link class="btn btn-nav" to="/add">문제등록</router-link>
+                </nav>
+                <div class="menu">
+                    <button class="btn btn-blue btn-sm" @click="openDevTool">DevTool</button>
+                    <button class="btn btn-green btn-sm">{{version}}</button>
+                </div>
+            </div>
+            <div class="right">
+                <router-view></router-view>
+            </div>
+        </section>
+
+        <transition name="fade">
+            <div id="popup" v-if="showModal">
+                <div class="inner">
+                    <span class="close" @click="showModal = false">&times;</span>
+                    <h3>로그인</h3>
+                    <input type="text">
+                    <input type="password">
+                </div>
+            </div>
+        </transition>
+    </div>
     <script src="./dist/build.js"></script>
 </body>
+
 </html>
